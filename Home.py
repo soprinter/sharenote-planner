@@ -97,9 +97,13 @@ st.markdown(
 
 st.markdown("### What is a Sharenote?")
 st.markdown(
-    "A Sharenote is simply a note that proves your miner solved a share—think of it as a receipt you can hold, pass along, or burn once the job is done. "
-    "Each accepted share prints one, so you always know what your hardware produced without trusting a mystery payout screen. "
-    "That’s the core idea; if you want the deep dive, check out [sharenote.xyz](https://sharenote.xyz) or the [manifesto](https://docs.flokicoin.org/wof/sharenote)."
+    """
+**Sharenote** is a miner-controlled proof-of-work receipt.
+
+Every accepted share mints a signed Sharenote — a portable, verifiable record of the work your miner completed. You can spend Sharenotes on social engagements, resolving coin-mining blocks, accessing intelligence services, and more. This keeps miners in full control of templates and payout accounting, instead of trusting centralized pool dashboards.
+
+👉 Learn more at [sharenote.xyz](https://sharenote.xyz) or read the [Sharenote manifesto](https://docs.flokicoin.org/wof/sharenote).
+    """
 )
 
 st.markdown("### How this workspace helps")
