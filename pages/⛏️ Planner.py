@@ -12,6 +12,7 @@ from __future__ import annotations
 from typing import List, Tuple
 
 import streamlit as st
+import local_sharenotelib  # noqa: F401 - ensures local sharenotelib is importable
 
 st.set_page_config(page_title="Print Planner", page_icon="⛏️", layout="centered")
 
@@ -19,12 +20,11 @@ from sharenotelib import (
     ReliabilityLevel,
     Sharenote,
     SharenoteError,
+    hashrate_range_for_note,
     get_reliability_levels,
     human_hashrate,
     note_from_components,
     note_from_hashrate,
-    required_hashrate,
-    required_hashrate_mean,
 )
 
 DEFAULT_TARGET_SECS = 5  # default SLA window
@@ -42,6 +42,11 @@ UNIT_FACTORS = {
     "ZH/s": 1e21,
     "YH/s": 1e24,
 }
+
+
+def _format_range_label(range_) -> str:
+    low, high = range_.human()
+    return f"{low.display} – {high.display}"
 
 
 def _load_reliability_levels() -> List[ReliabilityLevel]:
@@ -106,9 +111,9 @@ def main() -> None:
         selected_level = LABEL_TO_LEVEL.get(level_name, RELIABILITY_LEVELS[0])
         t_secs = st.number_input("Target window (seconds)", min_value=1, value=DEFAULT_TARGET_SECS, step=1)
 
-    st.caption(
-        f"Miner-focused helper: pick a reliability target, then match hashrate to the Sharenote you want to print every {t_secs:g} seconds."
-    )
+    st.title("Print Planner")
+    st.caption("Bridge your hardware speed to the right Sharenote label in plain language.")
+
 
     tab1, tab2 = st.tabs(["Hashrate → Print Sharenote", "Target Sharenote → Required hashrate"])
 
@@ -160,21 +165,21 @@ def main() -> None:
         label = target_note.label
 
         st.markdown(f"### Required hashrate for **{label}**")
-        req_mean = required_hashrate_mean(target_note, t_secs)
-        req_chosen = required_hashrate(target_note, t_secs, reliability=selected_level.id)
+        mean_range = hashrate_range_for_note(target_note, t_secs, multiplier=1.0)
+        selected_range = hashrate_range_for_note(target_note, t_secs, reliability=selected_level.id)
 
         mcol1, mcol2 = st.columns(2)
         with mcol1:
-            st.metric(label="Mean (on average)", value=human_hashrate(req_mean.value).display)
+            st.metric(label="Mean (on average)", value=_format_range_label(mean_range))
         with mcol2:
-            st.metric(label=f"{selected_level.label}", value=human_hashrate(req_chosen.value).display)
+            st.metric(label=f"{selected_level.label}", value=_format_range_label(selected_range))
 
         st.markdown("#### All reliability levels")
-        table = {"Reliability": [], "Required H/s": []}
+        table = {"Reliability": [], "Required H/s Range": []}
         for level in RELIABILITY_LEVELS:
-            measurement = required_hashrate(target_note, t_secs, reliability=level.id)
+            rng = hashrate_range_for_note(target_note, t_secs, reliability=level.id)
             table["Reliability"].append(level.label)
-            table["Required H/s"].append(measurement.human().display)
+            table["Required H/s Range"].append(_format_range_label(rng))
         st.table(table)
 
 
