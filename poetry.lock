@@ -1016,13 +1016,13 @@ files = [
 
 [[package]]
 name = "sharenotelib"
-version = "0.1.1"
+version = "0.1.2"
 description = "Reference Python SDK for Sharenote clients"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sharenotelib-0.1.1-py3-none-any.whl", hash = "sha256:79074be511ea8f95a41e0dcf96443c40946e86856200ea71f4e33ba9a5bc4379"},
-    {file = "sharenotelib-0.1.1.tar.gz", hash = "sha256:741f7ccc024dd8a00858de766baba70f4c66b780c43cb7aca77b29cc282f8f15"},
+    {file = "sharenotelib-0.1.2-py3-none-any.whl", hash = "sha256:f784084beec76ee0bb6c31c8e756512d6e95b573633ee8e205db8ae2a1fbef30"},
+    {file = "sharenotelib-0.1.2.tar.gz", hash = "sha256:0f2abf1fb8d5ea4185b9401d3d3c557f29eb92f034cbe0be2f42d58cf85a709e"},
 ]
 
 [[package]]
@@ -1217,4 +1217,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e08926f6feb0ec2c98e19191bebdcfd8da25b602515b1e7cd32694336add2c7a"
+content-hash = "9d48bf460d0f628614f9c6034df823de8aa1c8d5fa700312c51fee4abf63a540"
