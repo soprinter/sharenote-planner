@@ -15,7 +15,6 @@ import operator
 from typing import Dict, Optional, Tuple, List
 
 import streamlit as st
-import local_sharenotelib  # noqa: F401 - ensures local sharenotelib is importable
 
 
 st.set_page_config(page_title="Arithmetic Lab", page_icon="🧪", layout="centered")

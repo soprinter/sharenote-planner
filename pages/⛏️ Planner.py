@@ -12,7 +12,6 @@ from __future__ import annotations
 from typing import List, Tuple
 
 import streamlit as st
-import local_sharenotelib  # noqa: F401 - ensures local sharenotelib is importable
 
 st.set_page_config(page_title="Print Planner", page_icon="⛏️", layout="centered")
 
